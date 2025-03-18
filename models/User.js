@@ -1,9 +1,9 @@
 const db = require('../config/db');
-const bcrypt = require('bcryptjs');
+const { hashPassword } = require('../lib/passwordUtils');
 
 module.exports = {
   async create(firstName, lastName, email, password) {
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await hashPassword(password);
 
     const { rows } = await db.query(
       `

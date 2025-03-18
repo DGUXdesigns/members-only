@@ -1,5 +1,5 @@
 const { Client } = require('pg');
-const bcrypt = require('bcryptjs');
+const { hashPassword } = require('../lib/passwordUtils');
 
 const client = new Client({
   host: process.env.DB_HOST || 'localhost',
@@ -8,10 +8,6 @@ const client = new Client({
   password: process.env.DB_PASS,
   port: process.env.DB_PORT || 5432,
 });
-
-async function hash(password) {
-  return await bcrypt.hash(password, 10);
-}
 
 const tableSQL = `
   CREATE TABLE IF NOT EXISTS users (
@@ -57,10 +53,10 @@ async function populateDB() {
 
     // hash passwords
     const hashedPasswords = {
-      john: await hash('password123'),
-      jane: await hash('securepass'),
-      alice: await hash('mypassword'),
-      bob: await hash('letmein'),
+      john: await hashPassword('password123'),
+      jane: await hashPassword('securepass'),
+      alice: await hashPassword('mypassword'),
+      bob: await hashPassword('letmein'),
     };
 
     await client.query(tableSQL);
