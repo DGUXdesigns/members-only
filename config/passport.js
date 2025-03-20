@@ -1,7 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
-const db = require('./db');
 const User = require('../models/User');
 
 const customFields = {
@@ -13,16 +12,16 @@ const strategy = new LocalStrategy(
   customFields,
   async (email, password, done) => {
     try {
-      const user = await User.find(email);
+      const user = await User.findByEmail(email);
 
       if (!user) {
-        return done(null, false, { message: 'Invalid email' });
+        return done(null, false, { message: 'Incorrect email' });
       }
 
       const match = await bcrypt.compare(password, user.password);
 
       if (!match) {
-        return done(null, false, { message: 'Incorrect password.' });
+        return done(null, false, { message: 'Incorrect password' });
       }
 
       return done(null, user);
@@ -40,13 +39,13 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id, done) => {
   try {
-    const { rows } = await db.query('SELECT * FROM users WHERE id = $1', [id]);
+    const user = await User.findById(id);
 
-    if (!rows[0]) {
+    if (!user) {
       return done(null, false);
     }
 
-    done(null, rows[0]);
+    done(null, user);
   } catch (error) {
     done(error);
   }
