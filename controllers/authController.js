@@ -18,6 +18,13 @@ function showLoginForm(req, res) {
   });
 }
 
+function showJoinClubForm(req, res) {
+  res.render('auth/join-club', {
+    title: 'Join The Club',
+    errors: null,
+  });
+}
+
 async function createUser(req, res, next) {
   const errors = validationResult(req);
 
@@ -67,9 +74,44 @@ async function loginUser(req, res, next) {
   })(req, res, next);
 }
 
+async function postJoinClub(req, res) {
+  const SECRET_PASSCODE = process.env.SECRET_PASSCODE;
+  const title = 'Join The Club';
+  const { passcode } = req.body;
+
+  if (req.user.is_member === true) {
+    return res.render('auth/join-club', {
+      title: title,
+      error: `You're already part of the club!`,
+    });
+  }
+
+  if (passcode !== SECRET_PASSCODE) {
+    return res.render('auth/join-club', {
+      title: title,
+      error: 'Incorrect passcode! Try again',
+    });
+  }
+
+  try {
+    if (!req.user) {
+      return res.redirect('/login');
+    }
+
+    await User.updateMembership(req.user.id);
+
+    res.redirect('/');
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('something went wrong.');
+  }
+}
+
 module.exports = {
   createUser,
   showSignUpForm,
   showLoginForm,
+  showJoinClubForm,
   loginUser,
+  postJoinClub,
 };
