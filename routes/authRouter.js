@@ -13,4 +13,8 @@ authRouter.post('/register', signUpValidation, authController.createUser);
 authRouter.get('/login', authController.showLoginForm);
 authRouter.post('/login', loginValidation, authController.loginUser);
 
+// Activate membership
+authRouter.get('/join-club', authController.showJoinClubForm);
+authRouter.post('/join-club', authController.postJoinClub);
+
 module.exports = authRouter;
