@@ -17,7 +17,13 @@
           autocomplete="off"
           required
         />
+        <div class="error-message">
+          <% if (typeof error !== 'undefined') { %>
+          <p><%= error %></p>
+          <% } %>
+        </div>
       </div>
+
       <button type="submit">Submit</button>
     </form>
   </div>
