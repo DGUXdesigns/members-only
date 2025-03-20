@@ -22,6 +22,17 @@ module.exports = {
     return rows[0];
   },
 
+  async updateMembership(id) {
+    return db.query(
+      `
+      UPDATE users
+      SET is_member = true
+      WHERE id = $1; 
+      `,
+      [id],
+    );
+  },
+
   async findByEmail(email) {
     const { rows } = await db.query(
       `
