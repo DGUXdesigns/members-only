@@ -1,0 +1,24 @@
+<div class="form-wrapper">
+  <div class="form-container">
+    <h1>Join The Club</h1>
+    <p>
+      "I have keys but open no locks, I have space but no room, you can enter
+      but not go outside. What am I?"
+    </p>
+    <form action="/auth/join-club" method="POST">
+      <div class="form-control">
+        <label class="code-label" for="passcode"
+          >Enter the secret passcode</label
+        >
+        <input
+          type="text"
+          id="passcode"
+          name="passcode"
+          autocomplete="off"
+          required
+        />
+      </div>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</div>
