@@ -74,12 +74,21 @@ async function loginUser(req, res, next) {
   })(req, res, next);
 }
 
+function logoutUser(req, res, next) {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect('/');
+  });
+}
+
 async function postJoinClub(req, res) {
   const SECRET_PASSCODE = process.env.SECRET_PASSCODE;
   const title = 'Join The Club';
   const { passcode } = req.body;
 
-  if (req.user.is_member === true) {
+  if (req.user && req.user.is_member === true) {
     return res.render('auth/join-club', {
       title: title,
       error: `You're already part of the club!`,
@@ -114,4 +123,5 @@ module.exports = {
   showJoinClubForm,
   loginUser,
   postJoinClub,
+  logoutUser,
 };
