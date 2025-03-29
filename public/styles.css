@@ -44,7 +44,7 @@ main {
   flex-grow: 1;
   width: 100%;
   height: 100%;
-  padding: 6rem 1.5rem;
+  padding: 3rem 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -152,7 +152,8 @@ form {
   color: var(--txt-primary);
 }
 
-.form-control input {
+.form-control input,
+.form-control textarea {
   width: 100%;
   padding: 0.5rem;
   color: var(--txt-primary);
@@ -163,7 +164,14 @@ form {
   transition: border-color 0.3s ease-in-out;
 }
 
-.form-control input:focus {
+.form-control textarea {
+  field-sizing: content;
+  min-height: 18.75rem;
+  resize: none;
+}
+
+.form-control input:focus,
+.form-control textarea:focus {
   border-color: var(--accent-clr);
   outline: none;
 }
@@ -205,8 +213,49 @@ button:hover {
   height: 1rem;
 }
 
+.error-msg {
+  color: #ff3860;
+  font-size: 0.875rem;
+  height: 1rem;
+}
+
 .error-message {
   color: #ff3860;
   font-size: 0.875rem;
   height: 2.5rem;
+}
+
+/* posts */
+
+.author {
+  color: var(--accent-clr);
+  align-self: flex-end;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-top: 1rem;
+}
+
+.post {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: left;
+  min-width: 18.75rem;
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background-color: var(--surface-clr);
+  border-radius: 0.5rem;
+  will-change: transform;
+  transition: transform 0.3s ease;
+}
+
+.content {
+  color: var(--txt-scd);
+}
+
+.post:hover {
+  transform: translateY(-3px) scale(1.01);
 }
