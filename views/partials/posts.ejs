@@ -1,0 +1,12 @@
+<div class="post">
+  <h2><%= post.title %></h2>
+  <p class="content"><%= post.content %></p>
+  <% if (user && user.is_member) { %>
+  <div class="author">
+    <p><%= post.author %></p>
+    <p><%= post.created_at %></p>
+  </div>
+  <% } else { %>
+  <p class="author">Become a member to see who wrote this</p>
+  <% } %>
+</div>
