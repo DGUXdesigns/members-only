@@ -1,6 +1,16 @@
 <nav>
+  <% if (user) {%>
+  <a href="/">Home</a>
+  <a href="/posts">Posts</a>
+  <a href="/posts/new" class="new-post">Create Post</a>
+  <% if(!user.is_member) { %>
+  <a href="/auth/join-club" class="join-club">Join The Club</a>
+  <% } %>
+  <a href="/auth/logout">Log Out</a>
+  <% } else { %>
   <a href="/">Home</a>
   <a href="/posts">Posts</a>
   <a href="/auth/login">Login</a>
   <a href="/auth/register">Sign Up</a>
+  <% } %>
 </nav>
