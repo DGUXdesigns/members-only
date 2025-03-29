@@ -1,0 +1,32 @@
+<div class="form-wrapper">
+  <div class="form-container">
+    <h1>Make a New Post</h1>
+
+    <form action="/posts/new" method="POST" novalidate>
+      <div class="form-control">
+        <label for="title">Title</label>
+        <input
+          id="title"
+          name="title"
+          type="text"
+          autocomplete="off"
+          required
+        />
+      </div>
+      <div class="form-control">
+        <label for="content">Content</label>
+        <textarea name="content" id="content"></textarea>
+      </div>
+
+      <% if (errors) { %> <% Object.values(errors).forEach(error => { %>
+      <div class="error-msg">
+        <p><%= error %></p>
+        <% }) %> <% } %> <% if (typeof error !== 'undefined') { %>
+        <p><%= error %></p>
+      </div>
+      <% } %>
+
+      <button type="submit">Post</button>
+    </form>
+  </div>
+</div>
